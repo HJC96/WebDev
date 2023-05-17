@@ -132,5 +132,15 @@ public class MyServlet extends HttpServlet {
 ~~~
 ![image](https://github.com/HJC96/WebDev/assets/87226129/68b515c0-d8fb-4dc8-920b-aeefffe13df2)
 
+- web MVC 방식
+  - 배경
+    - 서블릿의 경우 자바 코드를 그대로 이용할 수 있지만 HTTP로 전달된 메시지를 HTML로 처리할때 많은 코드가 필요
+    - JSP의 경우 HTML 코드를 재사용해 HTTP 작성에는 적합하지만, 자바 코드 재사용의 문제
+  - MVC(Model, Viewer, Controller)
+    - 컨트롤러: 서블릿
+    - 뷰어: JSP   
+    - 모델: 필요한 데이터 제공
+
+
 
        
