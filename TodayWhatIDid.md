@@ -223,10 +223,51 @@ JSTL(JavaServer Pages Standard Tag Library)
 - 개념
   - jsp에서 statement를 처리하기 위한 라이브러리
   - 자바 문법보다 간결하게 제어문, 반복문, 선언문 등을 처리가능
+- 속성
+  - var
+    - EL에서 사용될 변수 이름
+  - itmes
+    - List, Set, Map, Enumeration, Iterator 등의 컬렉션 
+  - begin/end
+    - 반복의 시작/끝 값 
+
+### 실전 투입
+
 - 라이브러리 추가
 ~~~build.gradle
     implementation group: 'jstl', name: 'jstl', version: '1.2'
 ~~~
+- JSP 상단에 태그 추가
+~~~
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+~~~
+- 실제 예제
+~~~jsp
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<html>
+<head>
+    <title>List Page</title>
+</head>
+<body>
+<h1>List Page</h1>
+
+<ul>
+    <c:forEach var="dto" items="${list}">
+        <li>${dto}</li>
+    </c:forEach>
+</ul>
+
+</body>
+</html>
+~~~
+![image](https://github.com/HJC96/WebDev/assets/87226129/90ebdd2f-c67c-45b7-a9cd-02025870dfbd)
+
+
+Todo조회
+![image](https://github.com/HJC96/WebDev/assets/87226129/17fd5960-e935-4ad8-afb3-c400eecc6fc5)
+
 
 
 
