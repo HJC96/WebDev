@@ -271,4 +271,11 @@ Todo조회
 
 
 
+2023-05-19
+- MaraiaDB 설치 및 개발환경 구성
+  - db 생성
+  - 사용자 계정 생성과 권한 추가
+  - MariaDB와 IntelliJ 연동
+
+
 
