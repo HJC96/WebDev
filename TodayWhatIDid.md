@@ -28,7 +28,7 @@ public class MyServlet extends HttpServlet {
 
 - 웹 페이지 
   - JSP 코드 작성
-~~~java
+~~~jsp
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -74,7 +74,7 @@ public class MyServlet extends HttpServlet {
 
 - JSP를 이용해서 GET/POST 처리
   - GET 방식
-~~~java
+~~~jsp
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -96,7 +96,7 @@ public class MyServlet extends HttpServlet {
 
 - JSP를 이용해서 GET/POST 처리
   - POST 방식
-~~~java
+~~~jsp
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -116,7 +116,7 @@ public class MyServlet extends HttpServlet {
 ~~~
 
 
-~~~java
+~~~jsp
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -210,7 +210,7 @@ EL(Expression Language)
 - 용법
   - '${}'
 - 예제
-~~~java
+~~~jsp
 <h3>${1 + 2 + 3}</h3>
 <h3>${"AAA" += "BBB"}</h3>
 <h3>${"AAA".equals("AAA")}</h3>
@@ -243,7 +243,7 @@ JSTL(JavaServer Pages Standard Tag Library)
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 ~~~
 - 실제 예제
-~~~java
+~~~jsp
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
