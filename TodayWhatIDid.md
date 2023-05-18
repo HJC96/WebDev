@@ -1,6 +1,7 @@
 # Today What I DID
 
 2023-05-17
+## 웹 개발 기초
 - 개발환경 세팅
   - IDE: IntellJ Ultimate
   - Application Server: Tomcat 
@@ -134,7 +135,7 @@ public class MyServlet extends HttpServlet {
 
 
 2023-05-18
-
+## Web MVC
 
 - web MVC 방식
   - 배경
@@ -272,10 +273,81 @@ Todo조회
 
 
 2023-05-19
+## JDBC 
 - MaraiaDB 설치 및 개발환경 구성
   - db 생성
   - 사용자 계정 생성과 권한 추가
   - MariaDB와 IntelliJ 연동
+  - 다음의 라이브러리 추가
+~~~build.gradle
+implementation 'org.mariadb.jdbc:mariadb-java-client:3.0.4'
+~~~
+
+- MariaDB - IntelliJ 연동 테스트 코드 작성(JDBC Driver)
+~~~java
+package org.zerock.dao;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mariadb.jdbc.Driver;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class ConncectTests {
+
+    @Test
+    public void testConnection() throws Exception{
+
+        Class.forName("org.mariadb.jdbc.Driver"); // JDBC 드라이버 클래스를 메모리로 로딩
+
+        Connection connection = DriverManager.getConnection( // DB내의 정보들을 통해 특정 DB에 연결
+                "jdbc:mariadb://localhost:3306/webdb",
+                "webuser",
+                "webuser");
+
+        Assertions.assertNotNull(connection);
+
+        connection.close();  // DB연결 종료. JDBC는 DB와 연결을 잠깐씩 맺고 종료하는 형식으로 동작
+
+    }
+}
+
+~~~
+
+SQL
+- DDL(Data Definition Language)
+  - 테이블을 생성하거나 특정 객체 생성  
+- DML(Data Manipulation Language)
+  - insert/update/delete 등
+  - selcet 쿼리와 차이
+    - select 쿼리는 데이터를 반환하는 반면 DML은 몇개의 데이터가 처리되었는지 숫자로 결과 환환
+
+
+### 데이터 insert
+~~~sql
+insert into tbl_todo(title, dueDate, finished)
+values ('Test...','2023-05-19',1);
+~~~
+
+### 데이터 select
+~~~sql
+select * from tbl_todo where tno < 10;
+~~~
+
+### 데이터 update
+~~~sql
+update tbl_todo set finished = 0, title = 'Not Yet...' where tno = 3;
+~~~
+
+### 데이터 delete
+~~~sql
+delete from tbl_todo where tno > 5;
+~~~
+
+
+
+
 
 
 
