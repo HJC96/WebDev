@@ -353,6 +353,42 @@ public enum TodoService {
 ~~~
 
 - Log4j2
+  - 핵심 기능
+    - 어펜더(Appender)
+      - 로그를 어떤 방식으로 기록할 것인지
+        - 콘솔창 출력
+        - 파일 출력
+        - 등  
+    - 레벨(level)
+      - 로그의 중요도 개념
+      - 로그의 레벨 지정을 통해 해당 레벨 이상의 로그들만 출력할 수 있음.  
+  - 추가
+~~~build.gradle
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version:'2.17.2'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version:'2.17.2'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version:'2.17.2'
+~~~
+
+~~~xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration status="WARN">
+    <Appenders>
+        <Console name ="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern ="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level ="info">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>
+~~~
+- 용법
+~~~java
+log.info(todoVO); 
+//log.info(todoDTO);
+~~~
 
 
 
