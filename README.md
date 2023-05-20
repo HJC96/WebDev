@@ -1,14 +1,6 @@
 # WebDev
 
-### 웹 프로그래밍의 시작
-웹 프로그래밍은 개발자의 코드를 정해진 구조에 넣는 방식이다. 따라서 전체적인 구조와 흐름을 이해해야만 한다.
-
-
-
-
-
-
-
+[TodayWhatIdid](https://github.com/HJC96/WebDev/blob/main/TodayWhatIDid.md)
 
 
 
