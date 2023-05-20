@@ -395,10 +395,283 @@ log.info(todoVO);
 
 ## 컨트롤러와 서비스 객체 연동
 - TodoService
-  - TodoListController
-  - TodoRegisterController
-  - TodoModifyController
-  - TodoRemoveController 
+~~~java
+package com.zerock.jdbcex.service;
 
+import com.zerock.jdbcex.dao.TodoDAO;
+import com.zerock.jdbcex.domain.TodoVO;
+import com.zerock.jdbcex.dto.TodoDTO;
+import com.zerock.jdbcex.util.MapperUtil;
+import lombok.extern.log4j.Log4j2;
+import org.modelmapper.ModelMapper;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Log4j2
+public enum TodoService {
+    INSTANCE ;
+
+    private TodoDAO dao;
+    private ModelMapper modelMapper;
+
+    TodoService(){
+        dao = new TodoDAO();
+        modelMapper = MapperUtil.INSTANCE.get();
+    }
+
+    public void register(TodoDTO todoDTO) throws Exception{
+        TodoVO todoVO = modelMapper.map(todoDTO, TodoVO.class);
+//        System.out.println("todoVO: "+ todoVO);
+
+        log.info(todoVO);
+        dao.insert(todoVO);
+    }
+
+    public List<TodoDTO> listAll() throws Exception{
+
+        List<TodoVO> voList = dao.selectAll();
+        log.info(voList);
+
+        List<TodoDTO> dtoList = voList.stream()
+                .map(vo->modelMapper.map(vo,TodoDTO.class))
+                .collect(Collectors.toList());
+
+        return dtoList;
+    }
+
+    public TodoDTO get(Long tno) throws Exception{
+        log.info("tno: "+tno);
+        TodoVO todoVO = dao.selectOne(tno);
+        TodoDTO todoDTO = modelMapper.map(todoVO,TodoDTO.class);
+        return todoDTO;
+    }
+    public void remove(Long tno) throws Exception{
+        log.info("tno: " + tno);
+        dao.deleteOne(tno);
+    }
+
+    public void modify(TodoDTO todoDTO) throws Exception{
+        log.info("todoDTO: " + todoDTO);
+        TodoVO todoVO = modelMapper.map(todoDTO, TodoVO.class);
+        dao.updateOne(todoVO);
+
+    }
+}
+~~~
+  - TodoListController
+~~~java
+package com.zerock.jdbcex.controller;
+
+import com.zerock.jdbcex.dto.TodoDTO;
+import com.zerock.jdbcex.service.TodoService;
+
+
+import lombok.extern.log4j.Log4j2;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
+
+@WebServlet(name ="todoListController", value = "/todo/list")
+@Log4j2
+public class TodoListController extends HttpServlet {
+    private TodoService todoService = TodoService.INSTANCE;
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        log.info("todo list............");
+
+        try{
+            List<TodoDTO> dtoList = todoService.listAll();
+            req.setAttribute("dtoList", dtoList);
+            req.getRequestDispatcher("/WEB-INF/todo/list.jsp").forward(req, resp);
+        }catch (Exception e) {
+            log.error(e.getMessage());
+            throw new ServletException("list error");
+        }
+    }
+
+}
+~~~
+  - TodoRegisterController
+~~~java
+package com.zerock.jdbcex.controller;
+
+import com.zerock.jdbcex.dto.TodoDTO;
+import com.zerock.jdbcex.service.TodoService;
+import lombok.extern.log4j.Log4j2;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+@WebServlet(name = "todoRegisterController", value = "/todo/register")
+@Log4j2
+public class TodoRegisterController extends HttpServlet {
+    private TodoService todoService = TodoService.INSTANCE;
+    private final DateTimeFormatter DATEFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+        log.info("/todo/register GET .....");
+        req.getRequestDispatcher("/WEB-INF/todo/register.jsp").forward(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        TodoDTO todoDTO = TodoDTO.builder()
+                .title(req.getParameter("title"))
+                .dueDate(LocalDate.parse(req.getParameter("dueDate"),DATEFORMATTER))
+                .build();
+        log.info("/todo/register/register POST....");
+        log.info(todoDTO);
+        try{
+            todoService.register(todoDTO);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        resp.sendRedirect("/todo/list");
+    }
+}
+~~~
+  - TodoModifyController
+~~~java
+package com.zerock.jdbcex.controller;
+
+import com.zerock.jdbcex.dto.TodoDTO;
+import com.zerock.jdbcex.service.TodoService;
+import lombok.extern.log4j.Log4j2;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+@WebServlet(name = "todoModifyController", value = "/todo/modify")
+@Log4j2
+public class TodoModifyController extends HttpServlet {
+    private TodoService todoService = TodoService.INSTANCE;
+    private final DateTimeFormatter DATEFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try{
+            Long tno = Long.parseLong(req.getParameter("tno"));
+            TodoDTO todoDTO = todoService.get(tno);
+            //데이터 담기
+            req.setAttribute("dto", todoDTO);
+            req.getRequestDispatcher("/WEB-INF/todo/modify.jsp").forward(req, resp);
+        }catch(Exception e){
+            log.error(e.getMessage());
+            throw new ServletException("modify get .... error");
+        }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String finishedStr = req.getParameter("finished");
+
+        TodoDTO todoDTO = TodoDTO.builder()
+                .tno(Long.parseLong(req.getParameter("tno")))
+                .title(req.getParameter(req.getParameter("title")))
+                .dueDate(LocalDate.parse(req.getParameter("dueDate"), DATEFORMATTER))
+                .finished(finishedStr != null && finishedStr.equals("on"))
+                .build();
+
+        log.info("/todo/modify POST.....");
+        log.info(todoDTO);
+        try{
+            todoService.modify(todoDTO);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        resp.sendRedirect("/todo/list");
+    }
+}
+~~~
+  - TodoRemoveController 
+~~~java
+package com.zerock.jdbcex.controller;
+
+import com.zerock.jdbcex.service.TodoService;
+import lombok.extern.log4j.Log4j2;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+@WebServlet(name ="todoRemoveController", value = "/todo/remove")
+@Log4j2
+public class TodoRemoveController extends HttpServlet {
+    private TodoService todoService = TodoService.INSTANCE;
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Long tno = Long.parseLong(req.getParameter("tno"));
+        log.info("tno: "+tno);
+        try{
+            todoService.remove(tno);
+        }catch(Exception e){
+            log.error(e.getMessage());
+            throw new ServletException("read error");
+        }
+        resp.sendRedirect("/todo/list");
+    }
+}
+~~~
+
+  - TodoReadController 
+~~~java
+package com.zerock.jdbcex.controller;
+
+import com.zerock.jdbcex.dto.TodoDTO;
+import com.zerock.jdbcex.service.TodoService;
+import lombok.extern.log4j.Log4j2;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+@WebServlet(name = "todoReadController", value = "/todo/read")
+@Log4j2
+public class TodoReadController extends HttpServlet {
+    private TodoService todoService = TodoService.INSTANCE;
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try{
+            Long tno = Long.parseLong(req.getParameter("tno"));
+            TodoDTO todoDTO = todoService.get(tno);
+
+            //데이터 담기
+            req.setAttribute("dto", todoDTO);
+            req.getRequestDispatcher("/WEB-INF/todo/read.jsp").forward(req, resp);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw new ServletException("read error");
+        }
+    }
+}
+~~~
 
 
