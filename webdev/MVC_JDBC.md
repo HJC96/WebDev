@@ -386,20 +386,19 @@ public enum TodoService {
 ~~~
 - 용법
 ~~~java
+@Log4j2 // @Log4j 아님!!
+
 log.info(todoVO); 
 //log.info(todoDTO);
 ~~~
 
 
-
-
-
-
-
-
-
-
-
+## 컨트롤러와 서비스 객체 연동
+- TodoService
+  - TodoListController
+  - TodoRegisterController
+  - TodoModifyController
+  - TodoRemoveController 
 
 
 
