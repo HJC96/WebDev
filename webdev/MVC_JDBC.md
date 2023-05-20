@@ -288,3 +288,82 @@ public TodoVO selectOne(Long tno)throws Exception{
     
     
 ~~~
+
+
+## MVC_JDBC 결합
+TodoDAO를 구성하였으므로, 서비스 객체와 컨트롤러 객체를 연동하는 일만 남았다.
+- DTO-> VO, VO -> DTO 형변환
+  - ModelMapper 사용
+~~~build.gradle
+implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.0.0'
+~~~
+- TodoVO.java
+~~~
+@Getter
+@Builder
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+public class TodoVO {
+    private Long tno;
+    private String title;
+    private LocalDate dueDate;
+    private boolean finished;
+}
+~~~
+- MapperUtil.java
+~~~java
+public enum MapperUtil {
+    INSTANCE;
+
+    private ModelMapper modelMapper;
+
+    MapperUtil(){
+        this.modelMapper = new ModelMapper();
+        this.modelMapper.getConfiguration()
+                .setFieldMatchingEnabled(true)
+                .setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE)
+                .setMatchingStrategy(MatchingStrategies.STRICT);
+    }
+
+    public ModelMapper get(){
+        return modelMapper;
+    }
+}
+~~~
+- TodoService
+~~~java
+public enum TodoService {
+    INSTANCE ;
+
+    private TodoDAO dao;
+    private ModelMapper modelMapper;
+
+    TodoService(){
+        dao = new TodoDAO();
+        modelMapper = MapperUtil.INSTANCE.get();
+    }
+
+    public void register(TodoDTO todoDTO) throws Exception{
+        TodoVO todoVO = modelMapper.map(todoDTO, TodoVO.class);
+        System.out.println("todoVO: "+ todoVO);
+        dao.insert(todoVO);
+    }
+}
+~~~
+
+- Log4j2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
