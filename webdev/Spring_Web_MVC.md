@@ -25,3 +25,5 @@
   - @PathVariable: URL 경로의 일부를 변수로 삼아서 처리하기 위해서 사용
   - @ModelAttribute: 해당 파라미터는 반드시 Model에 포함되어서 다시 뷰(view)로 전달됨을 명시(주로 기본 자료형이나 Wrapper클래스, 문자열에 사용)
   - 기타 @SessionAttribute, @Valid, @RequestBody
+
+
