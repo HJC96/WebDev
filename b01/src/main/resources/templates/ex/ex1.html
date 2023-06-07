@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <ul>
+        <li th:each="str,status: ${list}">
+            <th:block th:switch="${status.index%3}">
+                <span th:case="0">0</span>
+                <span th:case="1">1</span>
+                <span th:case="2">2</span>
+            </th:block>
+        </li>
+    </ul>
+</body>
+</html>

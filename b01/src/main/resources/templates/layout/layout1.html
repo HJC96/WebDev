@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Layout Page</title>
+</head>
+<body>
+
+<div>
+  <h3>Sample Layout Header</h3>
+</div>
+
+<div layout:fragment="content">
+  <p>Page Content goes here</p>
+</div>
+
+<div>
+  <h3>Sample Layout Header</h3>
+</div>
+
+<th:block layout:fragment="script">
+</th:block>
+</body>
+</html>
