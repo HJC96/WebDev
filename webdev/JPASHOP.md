@@ -1,4 +1,7 @@
-인프런 김영한님의 강의를 듣고 클론코딩 해본 것입니다.
+## 인프런 김영한님의 강의를 듣고 클론코딩 해본 것입니다.
+
+### 강의 출처: https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81%EB%B6%80%ED%8A%B8-JPA-%ED%99%9C%EC%9A%A9-1/dashboard
+
 
 <img width="710" alt="image" src="https://github.com/HJC96/WebDev/assets/87226129/ad7c4e58-b4b0-41dc-8be3-490c546d8d1c">
 
@@ -18,4 +21,3 @@
 
 <img width="710" alt="image" src="https://github.com/HJC96/WebDev/assets/87226129/5cac4274-4c95-4075-9765-849da900ca0c">
 
-강의 출처: https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81%EB%B6%80%ED%8A%B8-JPA-%ED%99%9C%EC%9A%A9-1/dashboard
