@@ -1,7 +1,8 @@
 # What I DID
 
 ## SideProject
-### [JPA SHOPPING EXAMPLE](https://github.com/HJC96/WebDev/blob/main/webdev/JPASHOP.md)
+
+[JPA SHOPPING EXAMPLE](https://github.com/HJC96/WebDev/blob/main/webdev/JPASHOP.md)
 ---
 
 ## Study
