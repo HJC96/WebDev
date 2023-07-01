@@ -2,9 +2,9 @@
 
 ## SideProject
 
-[JPA SHOPPING EXAMPLE](https://github.com/HJC96/WebDev/blob/main/webdev/JPASHOP.md)
+[JPA SHOPPING EXAMPLE](https://github.com/HJC96/WebDev/blob/main/webdev/Concept/JPASHOP.md)
 
-[CRUD 게시판](https://github.com/HJC96/WebDev/blob/main/webdev/CRUD%EA%B2%8C%EC%8B%9C%ED%8C%90.md)
+[CRUD 게시판](https://github.com/HJC96/WebDev/blob/main/webdev/Concept/CRUD%EA%B2%8C%EC%8B%9C%ED%8C%90.md)
 
 ---
 
