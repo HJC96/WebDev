@@ -6,6 +6,7 @@
 
 [CRUD 게시판](https://github.com/HJC96/WebDev/blob/main/webdev/Concept/CRUD%EA%B2%8C%EC%8B%9C%ED%8C%90.md)
 
+[Fake Store API]()
 ---
 
 ## Study
