@@ -3,7 +3,8 @@
 ### 강의 출처: https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81%EB%B6%80%ED%8A%B8-JPA-%ED%99%9C%EC%9A%A9-1/dashboard
 
 ### ERD 설계
-<img width="671" alt="image" src="https://github.com/HJC96/WebDev/assets/87226129/51e79238-65de-449f-9d3c-d96e511ebd77">
+<img width="524" alt="image" src="https://github.com/HJC96/WebDev/assets/87226129/dcbc94c6-694f-49f1-95de-f7c3671df7ab">
+
 
 
 ### 프로젝트 구조
