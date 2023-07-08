@@ -6,8 +6,10 @@
 <img width="671" alt="image" src="https://github.com/HJC96/WebDev/assets/87226129/51e79238-65de-449f-9d3c-d96e511ebd77">
 
 
-
+### 프로젝트 구조
 <img width="710" alt="image" src="https://github.com/HJC96/WebDev/assets/87226129/ad7c4e58-b4b0-41dc-8be3-490c546d8d1c">
+
+
 
 <img width="710" alt="image" src="https://github.com/HJC96/WebDev/assets/87226129/e5e0db78-fa5a-4798-b84b-4d650a4c8c1f">
 
